@@ -6,8 +6,9 @@ import { Footer } from "../components/Footer";
 export const Home = () => {
 
     const [cryptoList, setCryptoList] = useState([]);
-    const [filteredList, setFilteredList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [filteredList, setFilteredList] = useState([]);
     const [viewMode, setViewMode] = useState("grid");
     const [sortBy, setSortBy] = useState("market_cap_rank");
     const [searchTerm, setSearchTerm] = useState("");
@@ -16,7 +17,7 @@ export const Home = () => {
         // Carga inicial de datos :
         fetchCryptoData();
 
-        // Los datos se actualizan en tiempo real cada 30 segundos:
+        // Los datos se actualizan en tiempo real cada 60 segundos:
         const interval = setInterval(fetchCryptoData, 60000);
         return () => clearInterval(interval);
     }, []);
@@ -29,8 +30,8 @@ export const Home = () => {
         try {
             const data = await fetchCryptos();
             setCryptoList(data);
-        } catch (error) {
-            console.error("Error en fetch de crytos:", error);
+        } catch (e) {
+            setError("Error al cargar los datos de criptomonedas.");
         } finally {
             setIsLoading(false);
         }

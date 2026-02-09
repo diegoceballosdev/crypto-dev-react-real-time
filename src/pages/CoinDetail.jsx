@@ -7,8 +7,8 @@ import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YA
 
 export const CoinDetail = () => {
 
-  const { id } = useParams();
   const navigate = useNavigate();
+  const { id } = useParams();
   const [coin, setCoin] = useState(null);
   const [chartData, setChartData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
